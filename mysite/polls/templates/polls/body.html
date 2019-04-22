@@ -1,0 +1,15 @@
+{% extends "polls/index.html" %}
+{% block title %}Demo{% endblock %}
+{% block body %}
+
+ <form method="post" enctype="multipart/form-data" class="login100-form validate-form" >
+    {% csrf_token %}
+    <input type="file" accept="image/*" name="Image"  />
+    <button type="submit">Upload</button>
+</form>
+
+{% if uploaded_file_url %}
+    <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+{% endif %}            
+<script type ="text/javascript" src=" static 'javasript.js' "></script>
+{% endblock  %}
