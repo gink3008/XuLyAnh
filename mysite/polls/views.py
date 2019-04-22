@@ -3,10 +3,9 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.core.files.storage import FileSystemStorage
 import polls.api1 as api1
-def vidu(request):
-    reponse = HttpResponse()
-    reponse.write('day la vidu')
-    return reponse
+def profile(request):
+    Data = {'Posts' : [((1,2,3,4),(1,2,3,4)),((1,2,3,4),(1,2,3,4,5))] }
+    return render(request, 'polls/profile.html', Data)
 def index2(request):
     if request.method == 'POST': 
         reponse = HttpResponse()
