@@ -2,10 +2,11 @@
 {% block title %}Demo{% endblock %}
 {% block body %}
 
- <form method="post" enctype="multipart/form-data" class="login100-form validate-form" >
+ <form method="post" enctype="multipart/form-data" class="login100-form validate-form" style = "padding-top: 80px;" >
     {% csrf_token %}
-    <input type="file" accept="image/*" name="Image"  />
-    <button type="submit">Upload</button>
+    <input class="input100" type="file" accept="image/*" name="Image" />
+    </br>
+    <button class="login100-form-btn" type="submit">Upload</button>
 </form>
 
 {% if uploaded_file_url %}
