@@ -1,6 +1,5 @@
 import numpy as np
 import cv2
-from django.http import HttpResponse 
 
 ##########################
 def sorty(c):
@@ -22,14 +21,14 @@ def main(url):
                 (cnts0, _) = cv2.findContours(edged0.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
                 for c in cnts0:
                         approx = cv2.approxPolyDP(c,0.01*cv2.arcLength(c,True),True)
-                if len(approx)==4:
-                        img=img[0:h,i-40:w]
-                        x=1
-                        break
-                if x==1:
-                        break
-                if x==1:
-                        break
+                        if len(approx)==4:
+                                img=img[0:h,i-40:w]
+                                x=1
+                                break
+                        if x==1:
+                                break
+                        if x==1:
+                                break
         #############################
 
         h,w,d =img.shape
@@ -38,8 +37,8 @@ def main(url):
         (cnts, _) = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         for c in cnts:
                 x,y,w,h=cv2.boundingRect(c)
-        if w>10 and h>10 and w<80 and h<80:
-                cv2.drawContours(img, [c], 0, (0,255,0), 3)
+                if w>10 and h>10 and w<80 and h<80:
+                        cv2.drawContours(img, [c], 0, (0,255,0), 3)
         ############################
         cnts=sorted(cnts,key=sorty)
         n_cnts=len(cnts)
@@ -55,9 +54,10 @@ def main(url):
                 list3=cnts[40*a-8+1:40*a+1]
                 list3=sorted(list3,key=sortx)
                 num=num+100
+        min_w, min_h = 30, 30
         for c in list1:
                 x,y,w,h=cv2.boundingRect(c)
-                if w>20 and h >20:
+                if w>min_w and h >min_h:
                         new_img=img[y:y+h,x:x+w]
                         cv2.drawContours(img, [c], 0, (0,255,0), 3)
                         cv2.imwrite(str(num)+'new.png',new_img)
@@ -65,7 +65,7 @@ def main(url):
         num=num+100
         for c in list2:
                 x,y,w,h=cv2.boundingRect(c)
-                if w>20 and h >20:
+                if w>min_w and h >min_h:
                         new_img=img[y:y+h,x:x+w]
                         cv2.drawContours(img, [c], 0, (0,255,0), 3)
                         cv2.imwrite(str(num)+'new.png',new_img)
@@ -73,7 +73,7 @@ def main(url):
         num=num+100
         for c in list3:
                 x,y,w,h=cv2.boundingRect(c)
-                if w>20 and h >20:
+                if w>min_w and h >min_h:
                         new_img=img[y:y+h,x:x+w]
                         cv2.drawContours(img, [c], 0, (0,255,0), 3)
                         cv2.imwrite(str(num)+'new.png',new_img)

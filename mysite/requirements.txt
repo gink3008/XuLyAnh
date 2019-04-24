@@ -1,0 +1,5 @@
+Django==2.2
+numpy==1.16.3
+Keras==2.2.4
+opencv_contrib_python==4.1.0.25
+matplotlib==3.0.3

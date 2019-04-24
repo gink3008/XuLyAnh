@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.core.files.storage import FileSystemStorage
 import polls.api1 
+import polls.api2
 def profile(request):
     Data = {'Posts' : [((1,2,3,4),(1,2,3,4)),((1,2,3,4),(1,2,3,4,5))] }
     return render(request, 'polls/profile.html', Data)
@@ -16,7 +17,7 @@ def index(request):
         image = Image()
         image.saveImg(name,url)
         Posts = [((1,2,3,4),(1,2,3,4)),((1,2,3,4),(1,2,3,4))] 
-        #api1(url)
+        api1.main(url)
         return redirect('profile')
     return render(request, 'polls/body.html')
 def index2(request):
