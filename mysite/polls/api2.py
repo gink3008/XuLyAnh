@@ -25,6 +25,7 @@ def load_data():
     y_test = np_utils.to_categorical(y_test)
     
     return x_train, y_train, x_test, y_test
+
 x_train, y_train, x_test, y_test = load_data()
 num_classes = y_test.shape[1]
 model = Sequential([
@@ -71,7 +72,7 @@ else:
 img_predict = cv2.imread("239new.png",0)
 img2 = cv2.resize(img_predict,(28, 28))
 # im_blur = cv2.GaussianBlur(img2,(5,5),0)
-im,img_pred = cv2.threshold(img2,127,255,cv2.THRESH_BINARY_INV)
+im,img_pred = cv2.threshold(img2,127,255,cv2.THRESH_BINARY_INV) # doan nay khong cna
 img = img_pred.reshape(28,28,-1)
 img_pre = img.reshape(1, 1, 28, 28).astype('float32')
 
