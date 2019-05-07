@@ -20,7 +20,18 @@ def index(request):
         image.saveImg(name,url)
         image.save()
         li = api1.main('.' + url)
-        Post = api2.Detect(li)
+        list_detect = api2.Detect(li)
+        Post = []
+        a = int(len(list_detect)/36 )
+        for i in range(a):
+            dong1 = list_detect[0+36*i:16+36*i-1]
+            dong2 = list_detect[16+36*i:28+36*i-1]
+            dong3 = list_detect[28+36*i:36+36*i-1]
+            o = []
+            o.append(dong1)
+            o.append(dong2)
+            o.append(dong3)
+            Post.append(o)
         Data = {'Posts' : Post }
         return render(request, 'polls/profile.html', Data)
     return render(request, 'polls/body.html')
