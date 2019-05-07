@@ -69,7 +69,7 @@ validdatagen.fit(x_train)
 # )
 #     model.save_weights(filename)
 # else:    
-model.load_weights('./polls/mnistdatanew.txt')
+model.load_weights('./mnistdatanew.txt')
 
 ###########################################
 
@@ -81,15 +81,15 @@ def Detect(list_img):
         im_gray = cv2.cvtColor(i,cv2.COLOR_BGR2GRAY)
         im,img_pred = cv2.threshold(im_gray,127,255,cv2.THRESH_BINARY_INV)
         img = img_pred.reshape(28,28,-1)
-        img_pre = img_pred.reshape(1, 1, 28, 28).astype('float32')
+        img_pre = img.reshape(1, 1, 28, 28).astype('float32')
         img_predict = img_pre/255.0
         results = model.predict_generator(
             validdatagen.flow(img_predict,batch_size=1,shuffle=False), steps=1
         )
         y_pred = np.argmax(results, axis=1)
-        new_Img.append(y_pred[0])
+        new_Img.append(y_pred)
         a = y_pred
-        print(a[0])
+        print(a)
     return new_Img
 
 # img_predict = cv2.imread("./100new.png",0)
