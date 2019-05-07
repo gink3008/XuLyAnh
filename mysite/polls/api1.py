@@ -25,7 +25,7 @@ def main(url):
     lista=[]
     img0=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
     res,thresh=cv2.threshold(img0,180,255,cv2.THRESH_BINARY)
-    ct,_ =cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+    (_,ct,_) =cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     #tô đậm khung 
     for c in ct:
         x,y,w,h = cv2.boundingRect(c)
@@ -35,7 +35,7 @@ def main(url):
     #      
     ret,thresh1 = cv2.threshold(img0,180,225,cv2.THRESH_BINARY)
     edged = cv2.Canny(thresh1, 0, 127)
-    (cnts, _) = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    (_,cnts, _) = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 #     cv2.imshow("edge",edged.copy())
 #     cv2.imshow("im0",img0)
 #     cv2.imshow("thresh1",thresh1)
@@ -91,7 +91,7 @@ def main(url):
                 cv2.drawContours(img, [c], 0, (0,255,0), 5)
                 cv2.imwrite(str(num)+'new.png',new_img)
                 num=num+1
-    cv2.imshow('sd',img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    #cv2.imshow('sd',img)
+    #cv2.waitKey(0)
+    #cv2.destroyAllWindows()
     return list_img

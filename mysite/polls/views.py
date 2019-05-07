@@ -2,8 +2,10 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect 
 from .models import *
 from django.core.files.storage import FileSystemStorage
-import polls.api1 
-import polls.api2
+from polls import api1 
+from polls import api2
+import cv2
+import numpy
 def profile(request):
     Data = {'Posts' : [((1,2,3,4),(1,2,3,4)),((1,2,3,4),(1,2,3,4,5))] }
     return render(request, 'polls/profile.html', Data)
@@ -16,9 +18,11 @@ def index(request):
         url = fs.url(name)
         image = Image()
         image.saveImg(name,url)
-        Posts = [((1,2,3,4),(1,2,3,4)),((1,2,3,4),(1,2,3,4))] 
-        api1.main(url)
-        return redirect('profile')
+        image.save()
+        li = api1.main('.' + url)
+        Post = api2.Detect(li)
+        Data = {'Posts' : Post }
+        return render(request, 'polls/profile.html', Data)
     return render(request, 'polls/body.html')
 def index2(request):
     if request.method == 'POST': 
