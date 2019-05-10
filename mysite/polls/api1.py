@@ -43,7 +43,7 @@ def main(url):
     for c in cnts:
         x,y,w,h=cv2.boundingRect(c)
         if w>min_w and h>min_h and cv2.contourArea(c)>400 and cv2.contourArea(c)<6000:
-            cv2.drawContours(img, [c], 0, (0,255,0), 5)
+            cv2.drawContours(img, [c], 0, (0,255,0), 6)
             ct.append(c)
     ###############################
     ct=sorted(ct,key=sorty)
@@ -68,8 +68,8 @@ def main(url):
                 new_img=img[y+l:y+h-l,x+l:x+w-l]
                 new_img=cv2.resize(new_img,(28,28),interpolation=cv2.INTER_CUBIC)
                 list_img.append(new_img)
-                cv2.drawContours(img, [c], 0, (0,255,0), 5)
-                cv2.imwrite(str(num)+'new.png',new_img)
+                # cv2.drawContours(img, [c], 0, (0,255,0), 5)
+                # cv2.imwrite(str(num)+'new.png',new_img)
                 num=num+1
         num=num+100
         for c in list2:
@@ -78,8 +78,8 @@ def main(url):
                 new_img=img[y+l:y+h-l,x+l:x+w-l]
                 new_img=cv2.resize(new_img,(28,28),interpolation=cv2.INTER_CUBIC)
                 list_img.append(new_img)
-                cv2.drawContours(img, [c], 0, (0,255,0), 5)
-                cv2.imwrite(str(num)+'new.png',new_img)
+                # cv2.drawContours(img, [c], 0, (0,255,0), 5)
+                # cv2.imwrite(str(num)+'new.png',new_img)
                 num=num+1
         num=num+100
         for c in list3:
@@ -88,10 +88,10 @@ def main(url):
                 new_img=img[y+l:y+h-l,x+l:x+w-l]
                 new_img=cv2.resize(new_img,(28,28),interpolation=cv2.INTER_CUBIC)
                 list_img.append(new_img)
-                cv2.drawContours(img, [c], 0, (0,255,0), 5)
-                cv2.imwrite(str(num)+'new.png',new_img)
+                # cv2.drawContours(img, [c], 0, (0,255,0), 5)
+                # cv2.imwrite(str(num)+'new.png',new_img)
                 num=num+1
-    cv2.imshow('sd',img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.imshow('sd',img)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
     return list_img
