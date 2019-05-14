@@ -66,8 +66,47 @@ def main(url):
         list2=sorted(list2,key=sortx)
         list3=ct[36*i-8:36*i]
         list3=sorted(list3,key=sortx)
+<<<<<<< HEAD
         #
         num=createImg(img,list1,num,l,list_img)
         num=createImg(img,list2,num,l,list_img)
         num=createImg(img,list3,num,l,list_img)
+=======
+        num=num+100
+        for c in list1:
+            x,y,w,h=cv2.boundingRect(c)
+            if w>min_w and h >min_h:
+                new_img=img[y+l:y+h-l,x+l:x+w-l]
+                new_img=cv2.resize(new_img,(28,28),interpolation=cv2.INTER_CUBIC)
+                list_img.append(new_img)
+                cv2.drawContours(img, [c], 0, (0,255,0), 5)
+                cv2.imwrite(str(num)+'new.png',new_img)
+                num=num+1
+        num=num+100
+        for c in list2:
+            x,y,w,h=cv2.boundingRect(c)
+            if w>min_w and h >min_h:
+                new_img=img[y+l:y+h-l,x+l:x+w-l]
+                new_img=cv2.resize(new_img,(28,28),interpolation=cv2.INTER_CUBIC)
+                list_img.append(new_img)
+                cv2.drawContours(img, [c], 0, (0,255,0), 5)
+                cv2.imwrite(str(num)+'new.png',new_img)
+                num=num+1
+        num=num+100
+        for c in list3:
+            x,y,w,h=cv2.boundingRect(c)
+            if w>min_w and h >min_h:
+                new_img=img[y+l:y+h-l,x+l:x+w-l]
+                new_img=cv2.resize(new_img,(28,28),interpolation=cv2.INTER_CUBIC)
+                list_img.append(new_img)
+                cv2.drawContours(img, [c], 0, (0,255,0), 5)
+                cv2.imwrite(str(num)+'new.png',new_img)
+                num=num+1
+    cv2.imshow('sd',img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+<<<<<<< HEAD
+>>>>>>> parent of 665280e... hoang commit
+=======
+>>>>>>> parent of 665280e... hoang commit
     return list_img
