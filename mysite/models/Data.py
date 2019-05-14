@@ -49,7 +49,7 @@ if not os.path.exists('./{}'.format(filename) ):
     epochs=10, 
     validation_data=validdatagen.flow(x_test, y_test, batch_size=128), 
     validation_steps=len(x_test)//128
-)
+    )
     model.save_weights(filename)
 else:    
     model.load_weights('./{}'.format(filename) )
@@ -66,10 +66,9 @@ def Detect(list_img):
         results = model.predict_generator(
             validdatagen.flow(img_predict,batch_size=1,shuffle=False), steps=1
         )
+        
         y_pred = np.argmax(results, axis=1)
-        new_Img.append(y_pred)
-        a = y_pred
-        print(a)
+        new_Img.append(y_pred[0])
     return new_Img
 #     img_predict = cv2.imread("100new.png",0)
 #     img2 = cv2.resize(img_predict,(28, 28))
