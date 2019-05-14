@@ -106,6 +106,9 @@ def main(url):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 665280e... hoang commit
+=======
 >>>>>>> parent of 665280e... hoang commit
 =======
 >>>>>>> parent of 665280e... hoang commit
