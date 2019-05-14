@@ -105,5 +105,8 @@ def main(url):
     cv2.imshow('sd',img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+<<<<<<< HEAD
+>>>>>>> parent of 665280e... hoang commit
+=======
 >>>>>>> parent of 665280e... hoang commit
     return list_img
