@@ -8,7 +8,8 @@ from matplotlib import pyplot as plt
 from keras.utils import np_utils
 import cv2
 import os
-
+from keras import backend as K
+K.set_image_dim_ordering('th')
 filename='mnistdatanew.txt'
 
 def load_data():
@@ -30,11 +31,8 @@ x_train, y_train, x_test, y_test = load_data()
 num_classes = y_test.shape[1]
 model = Sequential([
     Conv2D(64, kernel_size=(3,3),strides=(1, 1), padding='same', activation='relu', input_shape=((1,28, 28))),
-    Conv2D(64, kernel_size=(3,3),strides=(1, 1), padding='same', activation='relu'),
     MaxPooling2D(pool_size=(2,2)),
-    Dropout(rate=0.2),
-    Conv2D(32, kernel_size=(3,3),strides=(1, 1), padding='same', activation='relu'),
-    Conv2D(32, kernel_size=(3,3),strides=(1, 1), padding='same', activation='relu'),
+    Conv2D(128, kernel_size=(3,3),strides=(1, 1), padding='same', activation='relu'),
     MaxPooling2D(pool_size=(2,2)),
     Dropout(rate=0.2),
     Flatten(),
@@ -49,7 +47,7 @@ datagen = ImageDataGenerator(
     featurewise_center=True,
     featurewise_std_normalization=True,
     rotation_range=20,
-    width_shift_range=0.25,
+    width_shift_range=0.2,
     height_shift_range=0.2,
     shear_range=0.1,
     zoom_range=0.1,
@@ -71,40 +69,27 @@ validdatagen.fit(x_train)
 # )
 #     model.save_weights(filename)
 # else:    
-model.load_weights('./new_models.txt')
+model.load_weights('./mnistdatanew.txt')
 
 ###########################################
 
 
 def Detect(list_img):
     new_Img = []
-    
-    for idx,i in enumerate(list_img):
-        # img2 = cv2.resize(i,(28,28))
+    for i in list_img:
+        img2 = cv2.resize(i,(28,28))
         im_gray = cv2.cvtColor(i,cv2.COLOR_BGR2GRAY)
-        # cv2.imwrite(str(idx)+'.png',im_gray)
         im,img_pred = cv2.threshold(im_gray,127,255,cv2.THRESH_BINARY_INV)
-        cv2.imwrite(str(idx)+'.png',img_pred)
-        img = im_gray.reshape(28,28,-1)
+        img = img_pred.reshape(28,28,-1)
         img_pre = img.reshape(1, 1, 28, 28).astype('float32')
-        img_predict = 255-img_pre
-        # print(img_predict)
-        list_temp = img_predict.reshape(-1).astype('float32')
-        sum = 0
-        for i in list_temp:            
-            sum+= i
-            
-        # print(sum/(28*28))
-        if (sum/(28*28))<=3 and (sum/(28*28)) >=0:
-            new_Img.append('a')
-        else:
-            img_predict = img_predict/255.0
-            results = model.predict_generator(
-                validdatagen.flow(img_predict,batch_size=len(list_temp)//4,shuffle=False), steps=4
-            )
-            y_pred = np.argmax(results, axis=1)
-            new_Img.append(y_pred[0])
-        
+        img_predict = img_pre/255.0
+        results = model.predict_generator(
+            validdatagen.flow(img_predict,batch_size=1,shuffle=False), steps=1
+        )
+        y_pred = np.argmax(results, axis=1)
+        new_Img.append(y_pred)
+        a = y_pred
+        print(a)
     return new_Img
 
 # img_predict = cv2.imread("./100new.png",0)
