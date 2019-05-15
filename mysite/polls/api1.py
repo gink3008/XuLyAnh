@@ -15,6 +15,7 @@ def createImg(img,lists,num,l,list_img):
         if w>20 and h >20:
                 #ảnh lấy đc
                 new_img=img[y+l:y+h-l,x+l:x+w-l]   #bỏ khung 
+               
                 new_img=cv2.resize(new_img,(28,28),interpolation=cv2.INTER_CUBIC) #resize 28*28
                 list_img.append(new_img)              #cho vào list
                 cv2.imwrite(str(num)+'new.png',new_img)     #tạo các ảnh mới 
@@ -28,7 +29,7 @@ def main(url):
     img = cv2.resize(img,(2000,1000))   #resize ảnh
     h,w,d =img.shape        # lấy các chiều của ảnh
     num=1                   # số để tạo tên ảnh
-    img=img[0:h,400:w]      # cắt ảnh
+    img=img[0:h,400:w]      # cắt ảnhi
     list_img=[]             # danh sách đầu ra các ảnh
     l=5                     # l để resize ảnh ,bỏ phần viền
     ct=[]                   # là mảng các contour chính xác
@@ -66,43 +67,8 @@ def main(url):
         list2=sorted(list2,key=sortx)
         list3=ct[36*i-8:36*i]
         list3=sorted(list3,key=sortx)
-<<<<<<< HEAD
         #
         num=createImg(img,list1,num,l,list_img)
         num=createImg(img,list2,num,l,list_img)
         num=createImg(img,list3,num,l,list_img)
-=======
-        num=num+100
-        for c in list1:
-            x,y,w,h=cv2.boundingRect(c)
-            if w>min_w and h >min_h:
-                new_img=img[y+l:y+h-l,x+l:x+w-l]
-                new_img=cv2.resize(new_img,(28,28),interpolation=cv2.INTER_CUBIC)
-                list_img.append(new_img)
-                cv2.drawContours(img, [c], 0, (0,255,0), 5)
-                cv2.imwrite(str(num)+'new.png',new_img)
-                num=num+1
-        num=num+100
-        for c in list2:
-            x,y,w,h=cv2.boundingRect(c)
-            if w>min_w and h >min_h:
-                new_img=img[y+l:y+h-l,x+l:x+w-l]
-                new_img=cv2.resize(new_img,(28,28),interpolation=cv2.INTER_CUBIC)
-                list_img.append(new_img)
-                cv2.drawContours(img, [c], 0, (0,255,0), 5)
-                cv2.imwrite(str(num)+'new.png',new_img)
-                num=num+1
-        num=num+100
-        for c in list3:
-            x,y,w,h=cv2.boundingRect(c)
-            if w>min_w and h >min_h:
-                new_img=img[y+l:y+h-l,x+l:x+w-l]
-                new_img=cv2.resize(new_img,(28,28),interpolation=cv2.INTER_CUBIC)
-                list_img.append(new_img)
-                cv2.drawContours(img, [c], 0, (0,255,0), 5)
-                cv2.imwrite(str(num)+'new.png',new_img)
-                num=num+1
-    cv2.imshow('sd',img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
     return list_img
